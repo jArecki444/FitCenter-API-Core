@@ -22,6 +22,7 @@ namespace Backend.Controllers
        }
 
         // GET api/Users
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
@@ -30,7 +31,6 @@ namespace Backend.Controllers
         }
 
         // GET api/Users/5
-       [AllowAnonymous]
        [HttpGet("{id}")]
        public async Task<IActionResult> GetValue(int id)
        {
