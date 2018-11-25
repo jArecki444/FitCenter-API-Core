@@ -53,6 +53,7 @@ namespace Backend.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
+                new Claim(ClaimTypes.Name, userFromRepo.Name),
                 new Claim(ClaimTypes.Email, userFromRepo.Email)
             };
 
