@@ -1,60 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Backend.Data;
+using AutoMapper;
+using backend.Data;
+using backend.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace Backend.Controllers
+namespace backend.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
-       private readonly DataContext _context;
-       public UsersController(DataContext context)
-       {
-           _context = context;
-
-       }
-
-        // GET api/Users
-        [AllowAnonymous]
-        [HttpGet]
-        public async Task<IActionResult> GetUsers()
+        private readonly IUserRepository _repo;
+        private readonly IMapper _mapper;
+        public UsersController(IUserRepository repo, IMapper mapper)
         {
-            var users = await _context.Users.ToListAsync();
-            return Ok(users);
+            _mapper = mapper;
+            _repo = repo;
         }
 
-        // GET api/Users/5
-       [HttpGet("{id}")]
-       public async Task<IActionResult> GetValue(int id)
-       {
-           var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-           return Ok(user);
-   }
-
-
-        // POST api/Users
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUser(int id)
         {
-        }
+            var user = await _repo.GetUser(id);
 
-        // PUT api/Users/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+            var userToReturn = _mapper.Map<UserForDetailedDto>(user);
 
-        // DELETE api/Users/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return Ok(userToReturn);
         }
     }
 }
