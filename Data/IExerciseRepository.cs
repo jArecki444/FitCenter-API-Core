@@ -11,5 +11,6 @@ namespace backend.Data
          Task<bool> SaveAll();
          Task<IEnumerable<Exercise>> GetExercises();
          Task<Exercise> GetExercise(int id);
+         Task<Exercise> CreateExercise(Exercise exerciseToCreate);
     }
 }

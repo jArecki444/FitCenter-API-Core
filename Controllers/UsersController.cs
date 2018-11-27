@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using backend.Data;
 using backend.Dtos;
+using Backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,7 +28,7 @@ namespace backend.Controllers
 
             var userToReturn = _mapper.Map<UserForDetailedDto>(user);
 
-            return Ok(user);
+            return Ok(userToReturn);
         }
     }
 }

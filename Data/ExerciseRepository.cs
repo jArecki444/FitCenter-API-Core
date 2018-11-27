@@ -23,6 +23,15 @@ namespace backend.Data
             _context.Remove(entity);
         }
 
+        public async Task<Exercise> CreateExercise(Exercise exerciseToCreate)
+        {
+
+            await _context.Exercises.AddAsync(exerciseToCreate);
+            await _context.SaveChangesAsync();
+
+            return exerciseToCreate;
+        }        
+
         public async Task<Exercise> GetExercise(int id)
         {
             var exercise = await _context.Exercises.Include(u => u.User).FirstOrDefaultAsync(e => e.Id == id);
