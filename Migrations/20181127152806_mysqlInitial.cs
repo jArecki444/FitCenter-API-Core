@@ -1,17 +1,47 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Backend.Migrations
 {
-    public partial class ExtendedUserClass : Migration
+    public partial class mysqlInitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Surname = table.Column<string>(nullable: true),
+                    Weight = table.Column<int>(nullable: false),
+                    TargetWeight = table.Column<int>(nullable: false),
+                    Height = table.Column<int>(nullable: false),
+                    BF = table.Column<int>(nullable: false),
+                    TargetBF = table.Column<int>(nullable: false),
+                    BicepCircuit = table.Column<int>(nullable: false),
+                    ForearmCircuit = table.Column<int>(nullable: false),
+                    ChestCircuit = table.Column<int>(nullable: false),
+                    HipCircuit = table.Column<int>(nullable: false),
+                    WaistCircuit = table.Column<int>(nullable: false),
+                    CalfCircuit = table.Column<int>(nullable: false),
+                    Email = table.Column<string>(nullable: true),
+                    PasswordHash = table.Column<byte[]>(nullable: true),
+                    PasswordSalt = table.Column<byte[]>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Exercises",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     MuscleGroup = table.Column<string>(nullable: true),
                     CaloriesPerMinute = table.Column<int>(nullable: false),
@@ -33,7 +63,7 @@ namespace Backend.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Kcal = table.Column<string>(nullable: true),
                     Proteins = table.Column<int>(nullable: false),
@@ -70,6 +100,9 @@ namespace Backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "Meals");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }
