@@ -27,7 +27,7 @@ namespace backend.Controllers
 
             var userToReturn = _mapper.Map<UserForDetailedDto>(user);
 
-            return Ok(userToReturn);
+            return Ok(user);
         }
     }
 }
