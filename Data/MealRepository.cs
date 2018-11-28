@@ -28,6 +28,14 @@ namespace backend.Data
             var meals = await _context.Users.Include(m => m.Meals).FirstOrDefaultAsync(u => u.Id == userId);
             return meals;
         }
+        public async Task<Meal> CreateMeal(Meal mealToCreate)
+        {
+
+            await _context.Meals.AddAsync(mealToCreate);
+            await _context.SaveChangesAsync();
+
+            return mealToCreate;
+        }                
 
         public async Task<bool> SaveAll()
         {
