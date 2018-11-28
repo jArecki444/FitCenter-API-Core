@@ -9,9 +9,10 @@ namespace backend.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<User, UserForDetailedDto>();
-            CreateMap<Exercise, ExerciseForDetailedDto>();
             CreateMap<User, userExercisesForDetailedDto>();
-            CreateMap<Meal, MealForDetailedDto>();
+            CreateMap<User, userMealsForDetailedDto>();
+            CreateMap<Exercise, ExerciseForDetailedDto>();
+            CreateMap<Meal, userMealsForDetailedDto>();
         }
     }
 }

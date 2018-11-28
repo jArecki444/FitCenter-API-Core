@@ -23,15 +23,9 @@ namespace backend.Data
             _context.Remove(entity);
         }
 
-        public async Task<Meal> GetMeal(int id)
+        public async Task<User> GetUserMeals(int userId)
         {
-            var meal = await _context.Meals.Include(u => u.User).FirstOrDefaultAsync(m => m.Id == id);
-            return meal;
-        }
-
-        public async Task<IEnumerable<Meal>> GetMeals()
-        {
-            var meals = await _context.Meals.Include(u => u.User).ToListAsync();
+            var meals = await _context.Users.Include(m => m.Meals).FirstOrDefaultAsync(u => u.Id == userId);
             return meals;
         }
 
