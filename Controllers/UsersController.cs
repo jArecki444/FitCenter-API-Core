@@ -20,7 +20,7 @@ namespace backend.Controllers
             _mapper = mapper;
             _repo = repo;
         }
-
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(int id)
         {

@@ -16,12 +16,21 @@ namespace backend.Controllers
         private readonly IExerciseRepository _exerciseRepo;
         private readonly IUserRepository _userRepo;
         private readonly IMapper _mapper;
-        
+
         public ExercisesController(IExerciseRepository exerciseRepo, IUserRepository userRepo, IMapper mapper)
         {
             _userRepo = userRepo;
             _mapper = mapper;
             _exerciseRepo = exerciseRepo;
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetUserExercise(int userId)
+        {
+            var userExercises = await _exerciseRepo.GetUserExercises(userId);
+            var exercisesToReturn = _mapper.Map<userExercisesForDetailedDto>(userExercises);
+
+            return Ok(exercisesToReturn);
         }
 
         [HttpPost("Add")]

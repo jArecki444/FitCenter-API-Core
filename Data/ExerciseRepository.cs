@@ -32,16 +32,11 @@ namespace backend.Data
             return exerciseToCreate;
         }        
 
-        public async Task<Exercise> GetExercise(int id)
+        public async Task<User> GetUserExercises(int userId)
         {
-            var exercise = await _context.Exercises.Include(u => u.User).FirstOrDefaultAsync(e => e.Id == id);
+            // var exercise = await _context.Exercises.Include(u => u.User).FirstOrDefaultAsync(e => e.Id == userId);
+            var exercise = await _context.Users.Include(e => e.Exercises).FirstOrDefaultAsync(u => u.Id == userId);
             return exercise;
-        }
-
-        public async Task<IEnumerable<Exercise>> GetExercises()
-        {
-            var exercises = await _context.Exercises.Include(u => u.User).ToListAsync();
-            return exercises;
         }
 
         public async Task<bool> SaveAll()

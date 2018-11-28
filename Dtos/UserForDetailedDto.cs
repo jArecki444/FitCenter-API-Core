@@ -20,7 +20,5 @@ namespace backend.Dtos
         public int HipCircuit { get; set; }
         public int WaistCircuit { get; set; }
         public int CalfCircuit { get; set; }
-        public ICollection<ExerciseForDetailedDto> Exercises { get; set; }
-        public ICollection<MealForDetailedDto> Meals { get; set; }
     }
 }
