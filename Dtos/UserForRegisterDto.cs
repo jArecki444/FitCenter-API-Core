@@ -5,6 +5,10 @@ namespace Backend.Dtos
     public class UserForRegisterDto
     {
         [Required]
+        public string Name { get; set; }
+        [Required]
+        public string Surname { get; set; }
+        [Required]
         [EmailAddress(ErrorMessage = "Please enter a valid email address")]
         public string Email { get; set; }
 

@@ -34,7 +34,9 @@ namespace Backend.Controllers
                 return BadRequest("Email already taken");
             var userToCreate = new User
             {
-                Email = userForRegisterDto.Email
+                Email = userForRegisterDto.Email,
+                Name = userForRegisterDto.Name,
+                Surname = userForRegisterDto.Surname
             };
 
             var createUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
