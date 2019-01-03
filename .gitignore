@@ -1,0 +1,9 @@
+bin/Debug/
+obj/Debug/
+
+obj/Debug/netcoreapp2.1/Backend.csproj.CoreCompileInputs.cache
+obj/Debug/netcoreapp2.1/Backend.assets.cache
+obj/Debug/netcoreapp2.1/Backend.pdb
+obj/Debug/netcoreapp2.1/Backend.dll
+bin/Debug/netcoreapp2.1/Backend.pdb
+bin/Debug/netcoreapp2.1/Backend.dll

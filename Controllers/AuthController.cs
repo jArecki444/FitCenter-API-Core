@@ -23,6 +23,7 @@ namespace Backend.Controllers
             _config = config;
             _repo = repo;
         }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
@@ -33,7 +34,9 @@ namespace Backend.Controllers
                 return BadRequest("Email already taken");
             var userToCreate = new User
             {
-                Email = userForRegisterDto.Email
+                Email = userForRegisterDto.Email,
+                Name = userForRegisterDto.Name,
+                Surname = userForRegisterDto.Surname
             };
 
             var createUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
