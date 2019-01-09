@@ -31,6 +31,39 @@ namespace backend.Controllers
             return Ok(productsToReturn);
         }
         
+        // [HttpPost("{userId}")]
+        // public async Task<IActionResult> AddMealForUser(int userId, MealForCreationDto mealForCreationDto)
+        // {
+        //     var mealToCreate = new Meal 
+        //     {
+        //         MealName = mealForCreationDto.Name,
+        //         Kcal = mealForCreationDto.Kcal,
+        //         Proteins = mealForCreationDto.Proteins,
+        //         Carbohydrates = mealForCreationDto.Carbohydrates,
+        //         Fat = mealForCreationDto.Fat,
+        //         Products = mealForCreationDto.Product[],
+        //         UserId = userId                    
+        //     };
+        //     var createMeal = await _mealRepo.CreateMeal(mealToCreate);
+        //     return StatusCode(201);
+        // }
+        [HttpPost("{userId}")]
+        public async Task<IActionResult> AddMealForUser(int userId, Meal mealForCreationDto)
+        {
+            var mealToCreate = new Meal 
+            {
+                MealName = mealForCreationDto.MealName,
+                Kcal = mealForCreationDto.Kcal,
+                Proteins = mealForCreationDto.Proteins,
+                Carbohydrates = mealForCreationDto.Carbohydrates,
+                Fat = mealForCreationDto.Fat,
+                Products = mealForCreationDto.Products,
+                UserId = userId                    
+            };
+            var createMeal = await _mealRepo.CreateMeal(mealToCreate);
+            return StatusCode(201);
+        }
+
         [HttpPost("Add")]
         public async Task<IActionResult> AddProductForUser(int userId, ProductForCreationDto productForCreationDto)
         {

@@ -24,6 +24,7 @@ namespace Backend.Models
 
         public ICollection<Exercise> Exercises { get; set; }
         public ICollection<Product> Products { get; set; }
+        public ICollection<Meal> Meals { get; set; }
 
     }
 }

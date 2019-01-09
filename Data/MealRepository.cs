@@ -35,7 +35,15 @@ namespace backend.Data
             await _context.SaveChangesAsync();
 
             return productToCreate;
-        }                
+        }
+        public async Task<Meal> CreateMeal(Meal mealToCreate)
+        {
+
+            await _context.Meals.AddAsync(mealToCreate);
+            await _context.SaveChangesAsync();
+
+            return mealToCreate;
+        }                    
 
         public async Task<bool> SaveAll()
         {
