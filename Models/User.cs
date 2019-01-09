@@ -23,7 +23,7 @@ namespace Backend.Models
         public byte[] PasswordSalt { get; set; }
 
         public ICollection<Exercise> Exercises { get; set; }
-        public ICollection<Meal> Meals { get; set; }
+        public ICollection<Product> Products { get; set; }
 
     }
 }
