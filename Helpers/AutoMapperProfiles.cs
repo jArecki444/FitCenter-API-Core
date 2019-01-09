@@ -12,7 +12,7 @@ namespace backend.Helpers
             CreateMap<User, userExercisesForDetailedDto>();
             CreateMap<User, userProductsForDetailedDto>();
             CreateMap<Exercise, ExerciseForDetailedDto>();
-            CreateMap<Meal, userProductsForDetailedDto>();
+            CreateMap<Product, userProductsForDetailedDto>();
         }
     } 
 }

@@ -7,6 +7,6 @@ namespace backend.Dtos
         public int id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public ICollection<MealForDetailedDto> Meals { get; set; }
+        public ICollection<ProductForDetailedDto> Products { get; set; }
     }
 }
