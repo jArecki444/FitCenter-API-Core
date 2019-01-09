@@ -27,8 +27,8 @@ namespace backend.Controllers
         public async Task<ActionResult> GetUserProducts(int userId)
         {
             var userProducts = await _mealRepo.GetUserProducts(userId);
-            var ProductsToReturn = _mapper.Map<userProductsForDetailedDto>(userProducts);
-            return Ok(ProductsToReturn);
+            var productsToReturn = _mapper.Map<userProductsForDetailedDto>(userProducts);
+            return Ok(productsToReturn);
         }
         
         [HttpPost("Add")]
