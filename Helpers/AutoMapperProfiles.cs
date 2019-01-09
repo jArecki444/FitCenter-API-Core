@@ -10,10 +10,9 @@ namespace backend.Helpers
         {
             CreateMap<User, UserForDetailedDto>();
             CreateMap<User, userExercisesForDetailedDto>();
-            CreateMap<User, userMealsForDetailedDto>();
+            CreateMap<User, userProductsForDetailedDto>();
             CreateMap<Exercise, ExerciseForDetailedDto>();
-            CreateMap<Meal, userMealsForDetailedDto>();
-            CreateMap<UserForEditDto, User>();
+            CreateMap<Meal, userProductsForDetailedDto>();
         }
     } 
 }

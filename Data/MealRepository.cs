@@ -23,18 +23,18 @@ namespace backend.Data
             _context.Remove(entity);
         }
 
-        public async Task<User> GetUserMeals(int userId)
+        public async Task<User> GetUserProducts(int userId)
         {
-            var meals = await _context.Users.Include(m => m.Meals).FirstOrDefaultAsync(u => u.Id == userId);
-            return meals;
+            var products = await _context.Users.Include(m => m.Products).FirstOrDefaultAsync(u => u.Id == userId);
+            return products;
         }
-        public async Task<Meal> CreateMeal(Meal mealToCreate)
+        public async Task<Product> CreateProduct(Product productToCreate)
         {
 
-            await _context.Meals.AddAsync(mealToCreate);
+            await _context.Products.AddAsync(productToCreate);
             await _context.SaveChangesAsync();
 
-            return mealToCreate;
+            return productToCreate;
         }                
 
         public async Task<bool> SaveAll()

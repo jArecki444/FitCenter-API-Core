@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace backend.Dtos
 {
-    public class userMealsForDetailedDto
+    public class userProductsForDetailedDto
     {
         public int id { get; set; }
         public string Name { get; set; }

@@ -11766,11 +11766,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\jArecki\\Documents\\repos\\FitCenter\\backend\\Backend.csproj",
+      "projectUniqueName": "C:\\Users\\jArecki\\Desktop\\FitCenter\\backend\\Backend.csproj",
       "projectName": "Backend",
-      "projectPath": "c:\\Users\\jArecki\\Documents\\repos\\FitCenter\\backend\\Backend.csproj",
+      "projectPath": "C:\\Users\\jArecki\\Desktop\\FitCenter\\backend\\Backend.csproj",
       "packagesPath": "C:\\Users\\jArecki\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\jArecki\\Documents\\repos\\FitCenter\\backend\\obj\\",
+      "outputPath": "C:\\Users\\jArecki\\Desktop\\FitCenter\\backend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
