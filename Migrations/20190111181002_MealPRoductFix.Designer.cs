@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20181127152806_mysqlInitial")]
-    partial class mysqlInitial
+    [Migration("20190111181002_MealPRoductFix")]
+    partial class MealPRoductFix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.2-rtm-30932")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Backend.Models.Exercise", b =>
@@ -48,7 +48,49 @@ namespace Backend.Migrations
 
                     b.Property<int>("Fat");
 
-                    b.Property<string>("Kcal");
+                    b.Property<int>("Kcal");
+
+                    b.Property<string>("MealName");
+
+                    b.Property<int>("Proteins");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Meals");
+                });
+
+            modelBuilder.Entity("Backend.Models.MealProducts", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("MealId");
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MealId");
+
+                    b.ToTable("MealProducts");
+                });
+
+            modelBuilder.Entity("Backend.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Carbohydrates");
+
+                    b.Property<int>("Fat");
+
+                    b.Property<int>("Kcal");
 
                     b.Property<string>("Name");
 
@@ -60,7 +102,7 @@ namespace Backend.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Meals");
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Backend.Models.User", b =>
@@ -115,8 +157,24 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("Backend.Models.Meal", b =>
                 {
-                    b.HasOne("Backend.Models.User", "User")
+                    b.HasOne("Backend.Models.User")
                         .WithMany("Meals")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Backend.Models.MealProducts", b =>
+                {
+                    b.HasOne("Backend.Models.Meal")
+                        .WithMany("Products")
+                        .HasForeignKey("MealId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Backend.Models.Product", b =>
+                {
+                    b.HasOne("Backend.Models.User", "User")
+                        .WithMany("Products")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

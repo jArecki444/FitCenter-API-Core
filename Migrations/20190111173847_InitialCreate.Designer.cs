@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190109091027_TableRename")]
-    partial class TableRename
+    [Migration("20190111173847_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,6 +39,46 @@ namespace Backend.Migrations
                     b.ToTable("Exercises");
                 });
 
+            modelBuilder.Entity("Backend.Models.Meal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Carbohydrates");
+
+                    b.Property<int>("Fat");
+
+                    b.Property<int>("Kcal");
+
+                    b.Property<string>("MealName");
+
+                    b.Property<int>("Proteins");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Meals");
+                });
+
+            modelBuilder.Entity("Backend.Models.MealProducts", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("MealId");
+
+                    b.Property<int>("ProductId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MealId");
+
+                    b.ToTable("MealProducts");
+                });
+
             modelBuilder.Entity("Backend.Models.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -48,7 +88,7 @@ namespace Backend.Migrations
 
                     b.Property<int>("Fat");
 
-                    b.Property<string>("Kcal");
+                    b.Property<int>("Kcal");
 
                     b.Property<string>("Name");
 
@@ -110,6 +150,22 @@ namespace Backend.Migrations
                     b.HasOne("Backend.Models.User", "User")
                         .WithMany("Exercises")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Backend.Models.Meal", b =>
+                {
+                    b.HasOne("Backend.Models.User")
+                        .WithMany("Meals")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Backend.Models.MealProducts", b =>
+                {
+                    b.HasOne("Backend.Models.Meal")
+                        .WithMany("Products")
+                        .HasForeignKey("MealId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
