@@ -30,37 +30,32 @@ namespace backend.Controllers
             var productsToReturn = _mapper.Map<userProductsForDetailedDto>(userProducts);
             return Ok(productsToReturn);
         }
-        
-        // [HttpPost("{userId}")]
-        // public async Task<IActionResult> AddMealForUser(int userId, MealForCreationDto mealForCreationDto)
-        // {
-        //     var mealToCreate = new Meal 
-        //     {
-        //         MealName = mealForCreationDto.Name,
-        //         Kcal = mealForCreationDto.Kcal,
-        //         Proteins = mealForCreationDto.Proteins,
-        //         Carbohydrates = mealForCreationDto.Carbohydrates,
-        //         Fat = mealForCreationDto.Fat,
-        //         Products = mealForCreationDto.Product[],
-        //         UserId = userId                    
-        //     };
-        //     var createMeal = await _mealRepo.CreateMeal(mealToCreate);
-        //     return StatusCode(201);
-        // }
+
         [HttpPost("{userId}")]
-        public async Task<IActionResult> AddMealForUser(int userId, Meal mealForCreationDto)
+        public async Task<IActionResult> AddMealForUser(int userId, MealForCreationDto mealForCreationDto)
         {
-            var mealToCreate = new Meal 
+            var mealToCreate = new Meal
             {
-                MealName = mealForCreationDto.MealName,
+                MealName = mealForCreationDto.Name,
                 Kcal = mealForCreationDto.Kcal,
                 Proteins = mealForCreationDto.Proteins,
                 Carbohydrates = mealForCreationDto.Carbohydrates,
                 Fat = mealForCreationDto.Fat,
-                Products = mealForCreationDto.Products,
-                UserId = userId                    
+                UserId = userId
             };
             var createMeal = await _mealRepo.CreateMeal(mealToCreate);
+
+            foreach (ProductBindingModel item in mealForCreationDto.ProductBindingModels)
+            {
+                MealProducts mealProduct = new MealProducts()
+                {
+                    MealId = mealToCreate.Id,
+                    ProductId = item.ProductId,
+                    UserId = userId
+                };
+                var insertMealProduct = await _mealRepo.InsertMealProducts(mealProduct);
+            }
+            
             return StatusCode(201);
         }
 
@@ -68,7 +63,7 @@ namespace backend.Controllers
         public async Task<IActionResult> AddProductForUser(int userId, ProductForCreationDto productForCreationDto)
         {
             var userFromRepo = await _userRepo.GetUser(userId);
-            var productToCreate = new Product 
+            var productToCreate = new Product
             {
                 Name = productForCreationDto.Name,
                 Kcal = productForCreationDto.Kcal,
@@ -76,7 +71,7 @@ namespace backend.Controllers
                 Carbohydrates = productForCreationDto.Carbohydrates,
                 Fat = productForCreationDto.Fat,
                 User = userFromRepo,
-                UserId = userId                    
+                UserId = userId
             };
             var createProduct = await _mealRepo.CreateProduct(productToCreate);
             return StatusCode(201);

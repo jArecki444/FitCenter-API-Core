@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using backend.Dtos;
 using Backend.Data;
 using Backend.Models;
 using Microsoft.EntityFrameworkCore;
@@ -43,7 +44,14 @@ namespace backend.Data
             await _context.SaveChangesAsync();
 
             return mealToCreate;
-        }                    
+        }
+        public async Task<MealProducts> InsertMealProducts(MealProducts mealProduct)
+        {
+            await _context.MealProducts.AddAsync(mealProduct);
+            await _context.SaveChangesAsync();
+
+            return mealProduct;
+        }
 
         public async Task<bool> SaveAll()
         {

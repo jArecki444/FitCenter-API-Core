@@ -10,6 +10,7 @@ namespace Backend.Data
         public DbSet<Exercise> Exercises { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Meal> Meals { get; set; }
+        public DbSet<MealProducts> MealProducts { get; set; }
 
 
     }

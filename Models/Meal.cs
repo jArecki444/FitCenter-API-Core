@@ -14,6 +14,6 @@ namespace Backend.Models
         public int UserId { get; set; }
         // public Product Products {get; set;}
         // public ICollection<ProductForDetailedDto> Product { get; set; }
-        public ICollection<Product> Products { get; set; }
+        public ICollection<MealProducts> Products { get; set; }
     }
 }

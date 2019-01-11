@@ -10,7 +10,7 @@ namespace backend.Dtos
         public int Proteins { get; set; }
         public int Carbohydrates { get; set; }
         public int Fat { get; set; }
-        // public ICollection<Product> Products { get; set; }
-        public Product Products {get; set;}
+        public List <ProductBindingModel> ProductBindingModels {get; set;}
+        
     }
 }

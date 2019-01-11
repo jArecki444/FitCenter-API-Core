@@ -14,6 +14,7 @@ namespace backend.Data
 
         //  Task<User> GetUserMeals(int userId);
          Task<Meal> CreateMeal(Meal mealToCreate);
+         Task<MealProducts> InsertMealProducts(MealProducts mealProduct);
 
     }
 }
