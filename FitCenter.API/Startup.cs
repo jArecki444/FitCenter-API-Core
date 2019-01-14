@@ -79,7 +79,6 @@ namespace FitCenter.API
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IExerciseRepository, ExerciseRepository>();
-            services.AddScoped<IMealRepository, MealRepository>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IMealService, MealService>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

@@ -2,6 +2,7 @@ using AutoMapper;
 using FitCenter.Models.BindingModels.Meal;
 using FitCenter.Models.BindingModels.Product;
 using FitCenter.Models.Model;
+using FitCenter.Models.ModelDto.Meal;
 using FitCenter.Models.ModelDto.Product;
 
 namespace FitCenter.Services.Helpers
@@ -14,6 +15,7 @@ namespace FitCenter.Services.Helpers
             CreateMap<AddProductBindingModel, Product>();
             CreateMap<Product, AddProductDto>();
 
+            CreateMap<Meal, DetailsMealsDto>();
             CreateMap<AddMealBindingModel, Meal>();
             CreateMap<Meal, AddMealDto>();
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FitCenter.Models.BindingModels.Meal;
 using FitCenter.Models.BindingModels.Product;
+using FitCenter.Models.ModelDto.Meal;
 using FitCenter.Models.ModelDto.Product;
 
 namespace FitCenter.Services.Interfaces
@@ -12,5 +13,7 @@ namespace FitCenter.Services.Interfaces
     public interface IMealService
     {
         Task<Response<AddMealDto>> AddAsync(AddMealBindingModel bindingModel, int userId);
+        Task<Response<ICollection<DetailsMealsDto>>> GetAllAsync(int userId);
+        Task<Response<DetailsMealsDto>> GetAsync(int mealId);
     }
 }

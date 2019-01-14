@@ -34,5 +34,28 @@ namespace FitCenter.API.Controllers
             }
             return Ok(result);
         }
+
+        [HttpGet("AllUserMeals")]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var result = await _mealService.GetAllAsync(userId);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+        [HttpGet("{mealId}")]
+        public async Task<IActionResult> GetAsync(int mealId)
+        {
+            var result = await _mealService.GetAsync(mealId);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
     }
 }
