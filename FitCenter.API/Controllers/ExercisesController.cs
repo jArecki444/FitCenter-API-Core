@@ -1,8 +1,7 @@
+using System.Security.Claims;
 using System.Threading.Tasks;
-using AutoMapper;
-using FitCenter.Data.Data.Interfaces;
-using FitCenter.Models.Model;
-using Microsoft.AspNetCore.Authorization;
+using FitCenter.Models.BindingModels.Exercise;
+using FitCenter.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FitCenter.API.Controllers
@@ -12,41 +11,79 @@ namespace FitCenter.API.Controllers
     [ApiController]
     public class ExercisesController : ControllerBase
     {
-        private readonly IExerciseRepository _exerciseRepo;
-        private readonly IUserRepository _userRepo;
-        private readonly IMapper _mapper;
+        private readonly IExerciseService _exerciseService;
 
-        public ExercisesController(IExerciseRepository exerciseRepo, IUserRepository userRepo, IMapper mapper)
+        public ExercisesController(IExerciseService exerciseService)
         {
-            _userRepo = userRepo;
-            _mapper = mapper;
-            _exerciseRepo = exerciseRepo;
+            this._exerciseService = exerciseService;
         }
 
-        [HttpGet("{userId}")]
-        public async Task<IActionResult> GetUserExercise(int userId)
+        [HttpPost]
+        public async Task<IActionResult> AddAsync(AddExerciseBindingModel bindingModel)
         {
-            //var userExercises = await _exerciseRepo.GetUserExercises(userId);
-            //var exercisesToReturn = _mapper.Map<userExercisesForDetailedDto>(userExercises);
-
-            return Ok();
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var result = await _exerciseService.AddAsync(bindingModel, userId);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
 
-        [HttpPost("Add")]
-        public async Task<IActionResult> AddExerciseForUser(int userId, Exercise exerciseForCreationDto)
+        [HttpGet("AllUserExercises")]
+        public async Task<IActionResult> GetAllAsync()
         {
-            //var userFromRepo = await _userRepo.GetUser(userId);
-            //var exerciseToCreate = new Exercise
-            //{
-            //    Name = exerciseForCreationDto.Name,
-            //    MuscleGroup = exerciseForCreationDto.MuscleGroup,
-            //    CaloriesPerMinute = exerciseForCreationDto.CaloriesPerMinute,
-            //    User = userFromRepo,
-            //    UserId = userId
-            //};
-            //var createExercise = await _exerciseRepo.CreateExercise(exerciseToCreate);
-
-            return StatusCode(201);
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var result = await _exerciseService.GetAllAsync(userId);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
+
+        [HttpGet("{exerciseId}")]
+        public async Task<IActionResult> GetAsync(int exerciseId)
+        {
+            var result = await _exerciseService.GetAsync(exerciseId);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
+
+
+
+
+
+
+
+        //[HttpGet("{userId}")]
+        //public async Task<IActionResult> GetUserExercise(int userId)
+        //{
+        //    //var userExercises = await _exerciseRepo.GetUserExercises(userId);
+        //    //var exercisesToReturn = _mapper.Map<userExercisesForDetailedDto>(userExercises);
+
+        //    return Ok();
+        //}
+
+        //[HttpPost("Add")]
+        //public async Task<IActionResult> AddExerciseForUser(int userId, Exercise exerciseForCreationDto)
+        //{
+        //    //var userFromRepo = await _userRepo.GetUser(userId);
+        //    //var exerciseToCreate = new Exercise
+        //    //{
+        //    //    Name = exerciseForCreationDto.Name,
+        //    //    MuscleGroup = exerciseForCreationDto.MuscleGroup,
+        //    //    CaloriesPerMinute = exerciseForCreationDto.CaloriesPerMinute,
+        //    //    User = userFromRepo,
+        //    //    UserId = userId
+        //    //};
+        //    //var createExercise = await _exerciseRepo.CreateExercise(exerciseToCreate);
+
+        //    return StatusCode(201);
+        //}
     }
 }

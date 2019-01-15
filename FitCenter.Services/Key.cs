@@ -8,5 +8,6 @@ namespace FitCenter.Services
         public static string Product = "Produkt";
         public static string User = "Użytkownik";
         public static string MealProducts = "Posiłek-Produkt";
+        public static string Exercise = "Ćwiczenie";
     }
 }

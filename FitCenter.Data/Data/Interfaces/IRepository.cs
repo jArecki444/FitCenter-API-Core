@@ -6,7 +6,7 @@ using FitCenter.Models.Model;
 
 namespace FitCenter.Data.Data.Interfaces
 {
-    public interface IRepository<T> where T : Entity
+    public interface IRepository<T>
     {
         Task<bool> AddAsync(T entity);
         Task<bool> UpdateAsync(T entity);
