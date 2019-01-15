@@ -14,5 +14,7 @@ namespace FitCenter.Services.Interfaces
         Task<Response<AddProductDto>> AddAsync(AddProductBindingModel bindingModel, int userId);
         Task<Response<ICollection<DetailsProductDto>>> GetAllAsync(int userId);
         Task<Response<DeleteProductDto>> DeleteAsync(int exerciseId);
+        Task<Response<object>> UpdateAsync(UpdateProductBindingModel bindingModel);
+
     }
 }

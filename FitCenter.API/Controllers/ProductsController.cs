@@ -54,6 +54,17 @@ namespace FitCenter.API.Controllers
             return Ok(result);
         }
 
+        [HttpPut]
+        public async Task<IActionResult> UpdateAsync(UpdateProductBindingModel bindingModel)
+        {
+            var result = await _productService.UpdateAsync(bindingModel);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
         [HttpDelete("{productId}")]
         public async Task<IActionResult> DeleteAsync(int productId)
         {
@@ -64,6 +75,7 @@ namespace FitCenter.API.Controllers
             }
             return Ok(result);
         }
+
         //[HttpGet]
         //public async Task<IActionResult> GetAll([FromQuery]SearchParamsBindingModel searchParams)
         //{

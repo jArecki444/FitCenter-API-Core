@@ -117,5 +117,43 @@ namespace FitCenter.Services.Services
             response.SuccessResult = productDto;
             return response;
         }
+
+        public async Task<Response<object>> UpdateAsync(UpdateProductBindingModel bindingModel)
+        {
+            var response = await ValidateUpdateViewModel(bindingModel);
+            if (response.ErrorOccurred)
+            {
+                return response;
+            }
+
+            var product = await _productRepository.GetByAsync(x => x.Id == bindingModel.Id);
+
+            _productRepository.Detach(product);
+
+            var updatedProduct = _mapper.Map<Product>(bindingModel);
+            updatedProduct.UserId = product.UserId;
+            updatedProduct.User = product.User;
+            updatedProduct.Id = product.Id;
+            bool updateSucceed = await _productRepository.UpdateAsync(updatedProduct);
+            if (!updateSucceed)
+            {
+                response.AddError(Key.Product, Error.UpdateError);
+            }
+
+            response.SuccessResult = bindingModel;
+            return response;
+        }
+
+        private async Task<Response<object>> ValidateUpdateViewModel(UpdateProductBindingModel bindingModel)
+        {
+            var response = new Response<object>();
+            bool productExists = await _productRepository.ExistAsync(x => x.Id == bindingModel.Id);
+            if (!productExists)
+            {
+                response.AddError(Key.Product, Error.NotExist);
+            }
+
+            return response;
+        }
     }
 }
