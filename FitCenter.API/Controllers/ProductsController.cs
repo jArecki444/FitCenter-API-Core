@@ -58,6 +58,16 @@ namespace FitCenter.API.Controllers
             return Ok(result);
         }
 
+        [HttpDelete("{productId}")]
+        public async Task<IActionResult> DeleteAsync(int productId)
+        {
+            var result = await _productService.DeleteAsync(productId);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
         //[HttpGet]
         //public async Task<IActionResult> GetAll([FromQuery]SearchParamsBindingModel searchParams)
         //{
@@ -83,17 +93,5 @@ namespace FitCenter.API.Controllers
         //    }
         //    return Ok(result);
         //}
-
-        //[HttpDelete("{productName}")]
-        //public async Task<IActionResult> DeleteAsync(string productName)
-        //{
-        //    var result = await _productService.DeleteAsync(productName);
-        //    if (result.ErrorOccurred)
-        //    {
-        //        return BadRequest(result);
-        //    }
-        //    return Ok(result);
-        //}
-
     }
 }
