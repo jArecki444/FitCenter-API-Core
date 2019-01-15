@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using FitCenter.Data.Data.Interfaces;
 using FitCenter.Models.BindingModels.Meal;
-using FitCenter.Models.BindingModels.Product;
 using FitCenter.Models.Model;
 using FitCenter.Models.ModelDto;
 using FitCenter.Models.ModelDto.Meal;
 using FitCenter.Models.ModelDto.Product;
 using FitCenter.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using Paneleo.Services;
 
 namespace FitCenter.Services.Services
@@ -226,6 +222,28 @@ namespace FitCenter.Services.Services
                 mealDto.Products.Add(productDto);
             }
 
+            response.SuccessResult = mealDto;
+            return response;
+        }
+
+        public async Task<Response<DeleteMealDto>> DeleteAsync(int mealId)
+        {
+            var response = new Response<DeleteMealDto>();
+            var meal = await _mealRepository.GetByAsync(x => x.Id == mealId);
+            if (meal == null)
+            {
+                response.AddError(Key.Meal, Error.NotExist);
+                return response;
+            }
+
+            bool deleteSucceed = await _mealRepository.RemoveAsync(meal);
+            if (!deleteSucceed)
+            {
+                response.AddError(Key.Meal, Error.NotExist);
+                return response;
+            }
+
+            var mealDto = _mapper.Map<DeleteMealDto>(meal);
             response.SuccessResult = mealDto;
             return response;
         }

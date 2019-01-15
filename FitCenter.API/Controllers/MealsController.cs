@@ -1,10 +1,6 @@
-using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using AutoMapper;
-using FitCenter.Data.Data.Interfaces;
 using FitCenter.Models.BindingModels.Meal;
-using FitCenter.Models.Model;
 using FitCenter.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -51,6 +47,17 @@ namespace FitCenter.API.Controllers
         public async Task<IActionResult> GetAsync(int mealId)
         {
             var result = await _mealService.GetAsync(mealId);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+  
+        [HttpDelete("{mealId}")]
+        public async Task<IActionResult> DeleteAsync(int mealId)
+        {
+            var result = await _mealService.DeleteAsync(mealId);
             if (result.ErrorOccurred)
             {
                 return BadRequest(result);
