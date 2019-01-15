@@ -53,6 +53,17 @@ namespace FitCenter.API.Controllers
             return Ok(result);
         }
 
+        [HttpDelete("{exerciseId}")]
+        public async Task<IActionResult> DeleteAsync(int exerciseId)
+        {
+            var result = await _exerciseService.DeleteAsync(exerciseId);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+
 
 
 

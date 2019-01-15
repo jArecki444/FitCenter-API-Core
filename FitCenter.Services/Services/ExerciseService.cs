@@ -96,5 +96,27 @@ namespace FitCenter.Services.Services
             response.SuccessResult = exercisesDto;
             return response;
         }
+
+        public async Task<Response<DeleteExerciseDto>> DeleteAsync(int exerciseId)
+        {
+            var response = new Response<DeleteExerciseDto>();
+            var exercise = await _exerciseRepository.GetByAsync(x => x.Id == exerciseId);
+            if (exercise == null)
+            {
+                response.AddError(Key.Exercise, Error.NotExist);
+                return response;
+            }
+
+            bool deleteSucceed = await _exerciseRepository.RemoveAsync(exercise);
+            if (!deleteSucceed)
+            {
+                response.AddError(Key.Exercise, Error.NotExist);
+                return response;
+            }
+
+            var exerciseDto = _mapper.Map<DeleteExerciseDto>(exercise);
+            response.SuccessResult = exerciseDto;
+            return response;
+        }
     }
 }
