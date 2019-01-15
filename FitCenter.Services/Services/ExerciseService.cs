@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using FitCenter.Data.Data.Interfaces;
@@ -116,6 +114,41 @@ namespace FitCenter.Services.Services
 
             var exerciseDto = _mapper.Map<DeleteExerciseDto>(exercise);
             response.SuccessResult = exerciseDto;
+            return response;
+        }
+
+        public async Task<Response<object>> UpdateAsync(UpdateExerciseBindingModel bindingModel)
+        {
+            var response = await ValidateUpdateViewModel(bindingModel);
+            if (response.ErrorOccurred)
+            {
+                return response;
+            }
+
+            var exercise = await _exerciseRepository.GetByAsync(x => x.Id == bindingModel.Id);
+
+            _exerciseRepository.Detach(exercise);
+
+            var updatedExercise = _mapper.Map<Exercise>(bindingModel);
+            updatedExercise.UserId = exercise.UserId;
+            updatedExercise.User = exercise.User;
+            updatedExercise.Id = exercise.Id;
+            bool updateSucceed = await _exerciseRepository.UpdateAsync(updatedExercise);
+            if (!updateSucceed)
+            {
+                response.AddError(Key.Exercise, Error.UpdateError);
+            }
+            response.SuccessResult = bindingModel;
+            return response;
+        }
+        private async Task<Response<object>> ValidateUpdateViewModel(UpdateExerciseBindingModel bindingModel)
+        {
+            var response = new Response<object>();
+            bool exerciseExists = await _exerciseRepository.ExistAsync(x => x.Id == bindingModel.Id);
+            if (!exerciseExists)
+            {
+                response.AddError(Key.Exercise, Error.NotExist);
+            }
             return response;
         }
     }
