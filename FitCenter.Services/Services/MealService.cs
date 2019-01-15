@@ -39,11 +39,76 @@ namespace FitCenter.Services.Services
             _mapper = mapper;
         }
 
+        //public async Task<Response<AddMealDto>> AddAsync(AddMealBindingModel bindingModel, int userId)
+        //{
+        //    var response = new Response<AddMealDto>();
+        //    var mealProductsTmp = new List<MealProducts>();
+
+        //    var user = await _userRepository.GetByAsync(x => x.Id == userId);
+
+        //    if (user == null)
+        //    {
+        //        response.AddError(Key.User, Error.NotExist);
+        //        return response;
+        //    }
+
+        //    var meal = _mapper.Map<Meal>(bindingModel);
+
+        //    meal.User = user;
+        //    meal.UserId = userId;
+
+        //    var mealAddSuccess = await _mealRepository.AddAsync(meal);
+
+        //    if (!mealAddSuccess)
+        //    {
+        //        response.AddError(Key.Meal, Error.AddError);
+        //        return response;
+        //    }
+
+        //    foreach (var productId in bindingModel.ProductsIds)
+        //    {
+        //        var mealProduct = new MealProducts()
+        //        {
+        //            MealId = meal.Id,
+        //            ProductId = productId,
+        //            UserId = userId
+        //        };
+        //        var addMealProductSuccess = await _mealProductsRepository.AddAsync(mealProduct);
+        //        if (!addMealProductSuccess)
+        //        {
+        //            response.AddError(Key.MealProducts, Error.AddError);
+        //            return response;
+        //        }
+        //        mealProductsTmp.Add(mealProduct);
+        //    }
+
+        //    meal.MealProducts = mealProductsTmp;
+
+        //    var mealDto = _mapper.Map<AddMealDto>(meal);
+        //    mealDto.Products = new List<DetailsProductDto>();
+
+        //    foreach (var mealProduct in meal.MealProducts)
+        //    {
+        //        var productResponse = await _productService.GetAsync(mealProduct.ProductId);
+
+        //        if (productResponse.ErrorOccurred)
+        //        {
+        //            response.AddError(Key.Product, Error.NotExist);
+        //            return response;
+        //        }
+        //        mealDto.Products.Add(productResponse.SuccessResult);
+        //    }
+
+        //    response.SuccessResult = mealDto;
+
+        //    return response;
+        //}
+
         public async Task<Response<AddMealDto>> AddAsync(AddMealBindingModel bindingModel, int userId)
         {
             var response = new Response<AddMealDto>();
             var mealProductsTmp = new List<MealProducts>();
-            
+
             var user = await _userRepository.GetByAsync(x => x.Id == userId);
 
             if (user == null)
@@ -65,6 +130,7 @@ namespace FitCenter.Services.Services
                 return response;
             }
 
+            
             foreach (var productId in bindingModel.ProductsIds)
             {
                 var mealProduct = new MealProducts()
@@ -99,11 +165,17 @@ namespace FitCenter.Services.Services
                 mealDto.Products.Add(productResponse.SuccessResult);
             }
 
+            //Zliczalnie kalorycznosci
+            //foreach (var product in mealDto.Products)
+            //{
+            //    mealDto.Kcal += product.Kcal;
+            //}
+
+
             response.SuccessResult = mealDto;
 
             return response;
         }
-
         //Pobieranie wszystkich posiłków użytkownika wraz z tablicą ich produktów
         public async Task<Response<ICollection<DetailsMealsDto>>> GetAllAsync(int userId)
         {
