@@ -64,5 +64,16 @@ namespace FitCenter.API.Controllers
             }
             return Ok(result);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateAsync(UpdateMealBindingModel bindingModel)
+        {
+            var result = await _mealService.UpdateAsync(bindingModel);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
     }
 }
