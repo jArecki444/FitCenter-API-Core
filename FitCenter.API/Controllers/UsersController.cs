@@ -1,10 +1,7 @@
-using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using AutoMapper;
-using FitCenter.Data.Data.Interfaces;
-using FitCenter.Models.Dtos;
-using FitCenter.Models.Model;
+using FitCenter.Models.BindingModels.User;
+using FitCenter.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,38 +12,46 @@ namespace FitCenter.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IUserRepository _repo;
-        private readonly IMapper _mapper;
-        public UsersController(IUserRepository repo, IMapper mapper)
-        {
-            _mapper = mapper;
-            _repo = repo;
-         }
-        [AllowAnonymous]
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(int id)
-        {
-            var user = await _repo.GetUser(id);
+        private readonly IUserService _userService;
 
-            var userToReturn = _mapper.Map<UserForDetailedDto>(user);
-
-            return Ok(userToReturn);
+        public UsersController(IUserService userService)
+        {
+            this._userService = userService;
         }
-  
-        [HttpPut("{id}")]
-        public async Task<IActionResult> EditUser(int id, UserForEditDto userForEditDto)
+
+        [HttpGet]
+        public async Task<IActionResult> GetAsync()
         {
-            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                return Unauthorized();
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var result = await _userService.GetAsync(userId);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
 
-            var userFromRepo = await _repo.GetUser(id);
-            _mapper.Map(userForEditDto, userFromRepo);
-
-            if(await _repo.SaveAll())
-                return NoContent();
-            
-            throw new Exception($"Updating user {id} failed on save");
-
+        [HttpPut]
+        public async Task<IActionResult> UpdateAsync(UpdateUserBindingModel bindingModel)
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var result = await _userService.UpdateAsync(bindingModel, userId);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAsync()
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var result = await _userService.DeleteAsync(userId);
+            if (result.ErrorOccurred)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
         }
     }
 }

@@ -75,31 +75,5 @@ namespace FitCenter.API.Controllers
             }
             return Ok(result);
         }
-
-        //[HttpGet]
-        //public async Task<IActionResult> GetAll([FromQuery]SearchParamsBindingModel searchParams)
-        //{
-        //    var result = await _productService.GetAllAsync(searchParams);
-        //    if (result.ErrorOccurred)
-        //    {
-        //        return BadRequest(result);
-        //    }
-        //    return Ok(result);
-        //}
-
-
-
-        //[HttpPut]
-        //public async Task<IActionResult> UpdateAsync(UpdateProductBindingModel bindingModel)
-        //{
-        //    var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-
-        //    var result = await _productService.UpdateAsync(bindingModel, userId);
-        //    if (result.ErrorOccurred)
-        //    {
-        //        return BadRequest(result);
-        //    }
-        //    return Ok(result);
-        //}
     }
 }

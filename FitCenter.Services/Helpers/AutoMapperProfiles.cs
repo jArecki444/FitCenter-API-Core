@@ -2,10 +2,12 @@ using AutoMapper;
 using FitCenter.Models.BindingModels.Exercise;
 using FitCenter.Models.BindingModels.Meal;
 using FitCenter.Models.BindingModels.Product;
+using FitCenter.Models.BindingModels.User;
 using FitCenter.Models.Model;
 using FitCenter.Models.ModelDto.Exercise;
 using FitCenter.Models.ModelDto.Meal;
 using FitCenter.Models.ModelDto.Product;
+using FitCenter.Models.ModelDto.User;
 
 namespace FitCenter.Services.Helpers
 {
@@ -24,6 +26,9 @@ namespace FitCenter.Services.Helpers
             CreateMap<Exercise, DetailsExerciseDto>();
             CreateMap<AddExerciseBindingModel, Exercise>();
             CreateMap<Exercise, AddExerciseDto>();
+
+            CreateMap<User, DetailsUserDto>();
+            CreateMap<UpdateUserBindingModel, User>();
 
         }
     }

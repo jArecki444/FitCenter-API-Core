@@ -1,16 +1,13 @@
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace FitCenter.Models.Model
+namespace FitCenter.Models.BindingModels.User
 {
-    public class User : Entity
+    public class UpdateUserBindingModel
     {
-        public int Id {get; set;}
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Email { get; set; }
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
-
         public int Age { get; set; }
         public string BodyType { get; set; }
         public string Gender { get; set; }
@@ -24,10 +21,5 @@ namespace FitCenter.Models.Model
         public int HipCircuit { get; set; }
         public int WaistCircuit { get; set; }
         public int CalfCircuit { get; set; }
-
-        public ICollection<Exercise> Exercises { get; set; }
-        public ICollection<Product> Products { get; set; }
-        public ICollection<Meal> Meals { get; set; }
-
     }
 }

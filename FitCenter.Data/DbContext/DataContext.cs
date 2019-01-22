@@ -12,7 +12,5 @@ namespace FitCenter.Data.DbContext
         public DbSet<Product> Products { get; set; }
         public DbSet<Meal> Meals { get; set; }
         public DbSet<MealProducts> MealProducts { get; set; }
-
-
     }
 }
