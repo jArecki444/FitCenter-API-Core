@@ -2,6 +2,7 @@ using AutoMapper;
 using FitCenter.Models.BindingModels.Exercise;
 using FitCenter.Models.BindingModels.Meal;
 using FitCenter.Models.BindingModels.Product;
+using FitCenter.Models.BindingModels.TrainingDiary;
 using FitCenter.Models.BindingModels.User;
 using FitCenter.Models.Model;
 using FitCenter.Models.ModelDto.Exercise;
@@ -32,6 +33,10 @@ namespace FitCenter.Services.Helpers
             CreateMap<UpdateUserBindingModel, User>();
 
             CreateMap<UserExerciseResults, DetailsUserExerciseResults>();
-        }
+
+            CreateMap<AddTrainingDiaryBindingModel, TrainingDiary>();
+            CreateMap<DetailsUserExerciseResults, UserExerciseResults>();
+
     }
+}
 } 
