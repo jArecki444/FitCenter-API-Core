@@ -8,6 +8,7 @@ using FitCenter.Models.ModelDto.Exercise;
 using FitCenter.Models.ModelDto.Meal;
 using FitCenter.Models.ModelDto.Product;
 using FitCenter.Models.ModelDto.User;
+using FitCenter.Models.ModelDto.UserExerciseResults;
 
 namespace FitCenter.Services.Helpers
 {
@@ -30,6 +31,7 @@ namespace FitCenter.Services.Helpers
             CreateMap<User, DetailsUserDto>();
             CreateMap<UpdateUserBindingModel, User>();
 
+            CreateMap<UserExerciseResults, DetailsUserExerciseResults>();
         }
     }
 } 

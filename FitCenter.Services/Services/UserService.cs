@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using FitCenter.Data.Data.Interfaces;
 using FitCenter.Models.BindingModels.User;
@@ -9,7 +6,6 @@ using FitCenter.Models.Model;
 using FitCenter.Models.ModelDto;
 using FitCenter.Models.ModelDto.User;
 using FitCenter.Services.Interfaces;
-using Paneleo.Services;
 
 namespace FitCenter.Services.Services
 {

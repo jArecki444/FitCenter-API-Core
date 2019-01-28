@@ -8,7 +8,6 @@ using FitCenter.Models.ModelDto;
 using FitCenter.Models.ModelDto.Exercise;
 using FitCenter.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Paneleo.Services;
 
 namespace FitCenter.Services.Services
 {

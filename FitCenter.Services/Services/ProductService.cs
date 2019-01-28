@@ -9,17 +9,12 @@ using FitCenter.Models.Model;
 using FitCenter.Models.ModelDto;
 using FitCenter.Models.ModelDto.Product;
 using FitCenter.Services.Interfaces;
-using Paneleo.Services;
-
 namespace FitCenter.Services.Services
 {
     public class ProductService : IProductService
     {
-
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<User> _userRepository;
-
-
         private readonly IMapper _mapper;
 
         public ProductService(IRepository<Product> productRepository, IRepository<User> userRepository, IMapper mapper)

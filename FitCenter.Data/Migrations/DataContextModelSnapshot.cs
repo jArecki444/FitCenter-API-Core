@@ -22,8 +22,6 @@ namespace FitCenter.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CaloriesPerMinute");
-
                     b.Property<string>("MuscleGroup");
 
                     b.Property<string>("Name");
@@ -107,6 +105,26 @@ namespace FitCenter.Data.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("FitCenter.Models.Model.TrainingDiary", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("UserId");
+
+                    b.Property<int>("Volume");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TrainingDiary");
+                });
+
             modelBuilder.Entity("FitCenter.Models.Model.User", b =>
                 {
                     b.Property<int>("Id")
@@ -153,6 +171,32 @@ namespace FitCenter.Data.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("FitCenter.Models.Model.UserExerciseResults", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AmountOfReps");
+
+                    b.Property<int>("ExerciseId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("TrainingDiaryId");
+
+                    b.Property<int>("Volume");
+
+                    b.Property<int>("Weight");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExerciseId");
+
+                    b.HasIndex("TrainingDiaryId");
+
+                    b.ToTable("UserExerciseResults");
+                });
+
             modelBuilder.Entity("FitCenter.Models.Model.Exercise", b =>
                 {
                     b.HasOne("FitCenter.Models.Model.User", "User")
@@ -187,6 +231,27 @@ namespace FitCenter.Data.Migrations
                     b.HasOne("FitCenter.Models.Model.User", "User")
                         .WithMany("Products")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("FitCenter.Models.Model.TrainingDiary", b =>
+                {
+                    b.HasOne("FitCenter.Models.Model.User", "User")
+                        .WithMany("TrainingDiaries")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("FitCenter.Models.Model.UserExerciseResults", b =>
+                {
+                    b.HasOne("FitCenter.Models.Model.Exercise")
+                        .WithMany("UserExerciseResults")
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("FitCenter.Models.Model.TrainingDiary")
+                        .WithMany("UserExerciseResults")
+                        .HasForeignKey("TrainingDiaryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

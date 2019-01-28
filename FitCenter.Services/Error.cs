@@ -1,4 +1,4 @@
-﻿namespace Paneleo.Services
+﻿namespace FitCenter.Services
 {
     public static class Error
     {

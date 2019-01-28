@@ -11,9 +11,9 @@ namespace FitCenter.Models.Model
         public int Proteins { get; set; }
         public int Carbohydrates { get; set; }
         public int Fat { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
         public int UserId { get; set; }
-        public ICollection<MealProducts> MealProducts { get; set; }
+        public virtual ICollection<MealProducts> MealProducts { get; set; }
 
     }
 }

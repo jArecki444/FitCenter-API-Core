@@ -10,7 +10,6 @@ using FitCenter.Models.ModelDto.Meal;
 using FitCenter.Models.ModelDto.Product;
 using FitCenter.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Paneleo.Services;
 
 namespace FitCenter.Services.Services
 {
@@ -130,8 +129,10 @@ namespace FitCenter.Services.Services
 
             foreach (var meal in mealsDto)
             {
+                //Pobranie wszystkich id produktów z junction table
                 var productsIds = await _mealProductsRepository.GetAllByAsync(x => x.MealId == meal.Id);
 
+                //Dla każdego id produktu pobierz jego dane z Products i dodaj je do meal.Products
                 foreach (var product in productsIds)
                 {
                     var productTmp = await _productRepository.GetByAsync(x => x.Id == product.ProductId);

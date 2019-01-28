@@ -81,6 +81,7 @@ namespace FitCenter.API
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IExerciseService, ExerciseService>();
             services.AddTransient<IMealService, MealService>();
+            services.AddTransient<ITrainingDiaryService, TrainingDiaryService>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {

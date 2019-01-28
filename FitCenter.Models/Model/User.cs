@@ -25,9 +25,10 @@ namespace FitCenter.Models.Model
         public int WaistCircuit { get; set; }
         public int CalfCircuit { get; set; }
 
-        public ICollection<Exercise> Exercises { get; set; }
-        public ICollection<Product> Products { get; set; }
-        public ICollection<Meal> Meals { get; set; }
+        public virtual ICollection<Exercise> Exercises { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<Meal> Meals { get; set; }
+        public virtual ICollection<TrainingDiary> TrainingDiaries { get; set; }
 
     }
 }
