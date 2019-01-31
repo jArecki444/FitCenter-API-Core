@@ -11,5 +11,6 @@ namespace FitCenter.Services.Interfaces
         Task<Response<DetailsTrainingDiaryDto>> GetAsync(int trainingDiaryId);
         Task<Response<ICollection<DetailsTrainingDiaryDto>>> GetAllAsync(int userId);
         Task<Response<AddTrainingDiaryBindingModel>> AddAsync(AddTrainingDiaryBindingModel bindingModel, int userId);
+        Task<Response<object>> UpdateAsync(UpdateTrainingDiaryBindingModel bindingModel);
     }
 }

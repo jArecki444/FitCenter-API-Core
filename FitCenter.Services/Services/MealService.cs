@@ -216,7 +216,8 @@ namespace FitCenter.Services.Services
                 {
                     MealId = meal.Id,
                     ProductId = productId,
-                    UserId = meal.UserId
+                    UserId = meal.UserId,
+                    
                 };
           
                 //Dodaj wpis do listy która posłuży do aktualizacji mealProducts
@@ -245,14 +246,11 @@ namespace FitCenter.Services.Services
             updatedMeal.Id = meal.Id;
 
             //Aktualizacja posiłku z produktami
-            bool updateSucceed = await _mealRepository.UpdateAsync(updatedMeal); 
-            if (!updateSucceed)
-            {
-                response.AddError(Key.Meal, Error.UpdateError);
-            }
+            bool updateSucceed = await _mealRepository.UpdateAsync(updatedMeal);
+            if (!updateSucceed) response.AddError(Key.Meal, Error.UpdateError);
 
             response.SuccessResult = bindingModel;
-                return response;
+            return response;
         }
 
             private async Task<Response<object>> ValidateUpdateViewModel(UpdateMealBindingModel bindingModel)

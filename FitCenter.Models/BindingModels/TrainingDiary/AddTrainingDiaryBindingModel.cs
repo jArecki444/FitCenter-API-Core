@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using FitCenter.Models.Model;
 using FitCenter.Models.ModelDto.UserExerciseResults;
 
 namespace FitCenter.Models.BindingModels.TrainingDiary

@@ -116,5 +116,66 @@ namespace FitCenter.Services.Services
 
             return response;
         }
+
+        public async Task<Response<object>> UpdateAsync(UpdateTrainingDiaryBindingModel bindingModel)
+        {
+            var response = await ValidateUpdateViewModel(bindingModel);
+            var userExercisesResultsTmp = new List<UserExerciseResults>();
+            if (response.ErrorOccurred)
+            {
+                return response;
+            }
+            var trainingDiary = await _trainingDiaryRepository.GetByAsync(x => x.Id == bindingModel.Id);
+            _trainingDiaryRepository.Detach(trainingDiary);
+
+            //Dla każdego podanego id exercise w trainingDiary dodaj wpis w exercise results
+            foreach (var exercise in bindingModel.UserExerciseResults)
+            {
+                var updatedUserExerciseResult = new UserExerciseResults()
+                {
+                    ExerciseId = exercise.ExerciseId,
+                    TrainingDiaryId = trainingDiary.Id,
+                    Name = exercise.Name,
+                    AmountOfReps = exercise.AmountOfReps,
+                    Volume = exercise.Volume,
+                    Weight = exercise.Weight
+                };
+                userExercisesResultsTmp.Add(updatedUserExerciseResult);
+            }
+
+            var trainingExercises = await _userExerciseResultsRepository.GetAllByAsync(x => x.TrainingDiaryId == trainingDiary.Id).Result.ToListAsync();
+            foreach (var element in trainingExercises)
+            {
+                bool deleteSucceed = await _userExerciseResultsRepository.RemoveAsync(element);
+                if (!deleteSucceed)
+                {
+                    response.AddError(Key.TrainingExercise, Error.NotExist);
+                    return response;
+                }
+            }
+            var updatedTrainingDiary = _mapper.Map<TrainingDiary>(bindingModel);
+                updatedTrainingDiary.UserExerciseResults = userExercisesResultsTmp;
+                updatedTrainingDiary.UserId = trainingDiary.UserId;
+                updatedTrainingDiary.User = trainingDiary.User;
+                updatedTrainingDiary.Id = trainingDiary.Id;
+
+            bool updateSucceed = await _trainingDiaryRepository.UpdateAsync(updatedTrainingDiary);
+            if (!updateSucceed) response.AddError(Key.Meal, Error.UpdateError);
+        
+            response.SuccessResult = bindingModel;
+            return response;
+        }
+
+        private async Task<Response<object>> ValidateUpdateViewModel(UpdateTrainingDiaryBindingModel bindingModel)
+        {
+            var response = new Response<object>();
+            bool trainingDiaryExists = await _trainingDiaryRepository.ExistAsync(x => x.Id == bindingModel.Id);
+            if (!trainingDiaryExists)
+            {
+                response.AddError(Key.TrainingDiary, Error.NotExist);
+            }
+
+            return response;
+        }
     }
 }
